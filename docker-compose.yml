@@ -1,8 +1,13 @@
-version: "2.1"
+version: "3.1"
 services:
 
   db:
      image: mysql:8.0
+     deploy:
+       resources:
+         limits:
+           cpus: '0.50'
+           memory: 512M
      command:
       - --default_authentication_plugin=mysql_native_password
       - --character-set-server=utf8mb4
@@ -16,12 +21,22 @@ services:
 
   redis:
     image: library/redis:5.0-alpine
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
     restart: unless-stopped
     volumes:
       - redis-data:/data
 
   esearch:
     image: elasticsearch:7.5.0
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
     restart: unless-stopped
     environment:
       discovery.type: single-node
