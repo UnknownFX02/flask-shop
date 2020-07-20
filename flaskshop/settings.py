@@ -19,13 +19,13 @@ class Config:
     #   - cache
     #   - save product description
     #   - save page content
-    USE_REDIS = True
+    USE_REDIS = False
     REDIS_URL = os.getenv("REDIS_URI", LocalConfig.redis_uri)
 
     # Elasticsearch
     # if elasticsearch is enabled, the home page will have a search bar
     # and while add a product, the search index will get update
-    USE_ES = True
+    USE_ES = False
     ES_HOSTS = [
         os.getenv("ESEARCH_URI", LocalConfig.esearch_uri),
     ]
