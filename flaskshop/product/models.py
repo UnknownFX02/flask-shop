@@ -52,9 +52,10 @@ class Product(Model):
 
     @property
     def first_img(self):
+        from random import randint
         if self.images:
             return str(self.images[0])
-        return ""
+        return "http://localhost:5000/static/placeholders/%s.jpg" % (randint(1, 8))
 
     @property
     def is_in_stock(self):
