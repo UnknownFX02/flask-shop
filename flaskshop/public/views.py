@@ -35,11 +35,13 @@ def search():
     query = request.args.get("q", "")
     page = request.args.get("page", default=1, type=int)
     pagination = Item.new_search(query, page)
+    paginationv2 = pagination
+    paginationv2.total = paginationv2.total.value
     return render_template(
         "public/search_result.html",
         products=pagination.items,
         query=query,
-        pagination=pagination,
+        pagination=paginationv2,
     )
 
 
