@@ -14,8 +14,12 @@ from flaskshop.public.models import Page, MenuItem
 from .utils import ApiResult, wrap_partial
 
 
+from flaskshop.database import db
+
 def item_del(cls, id):
     try:
+        if type(cls) == type(Product): # ORM get Product error
+            db.engine.execute("DELETE FROM product_product WHERE id = %s" % (id))
         item = cls.get_by_id(id)
         item.delete()
     except Exception as e:
