@@ -3,7 +3,8 @@
 import sys
 
 from flask import Flask, render_template
-from werkzeug.wsgi import DispatcherMiddleware
+#from werkzeug.wsgi import DispatcherMiddleware
+from werkzeug.middleware.dispatcher import DispatcherMiddleware
 
 from flaskshop import commands
 from flaskshop.extensions import (
