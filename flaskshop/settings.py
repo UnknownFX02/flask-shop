@@ -5,7 +5,7 @@ from pathlib import Path
 
 
 class LocalConfig:
-    db_uri = "mysql+pymysql://root:root@127.0.0.1:3306/flaskshop?charset=utf8mb4"
+    db_uri = "mysql+pymysql://root:Sve14122cvb@127.0.0.1:3306/flaskshop?charset=utf8mb4"
     redis_uri = "redis://localhost:6379"
     esearch_uri = "localhost"
 
@@ -19,13 +19,13 @@ class Config:
     #   - cache
     #   - save product description
     #   - save page content
-    USE_REDIS = False
+    USE_REDIS = True
     REDIS_URL = os.getenv("REDIS_URI", LocalConfig.redis_uri)
 
     # Elasticsearch
     # if elasticsearch is enabled, the home page will have a search bar
     # and while add a product, the search index will get update
-    USE_ES = False
+    USE_ES = True
     ES_HOSTS = [
         os.getenv("ESEARCH_URI", LocalConfig.esearch_uri),
     ]
@@ -50,3 +50,32 @@ class Config:
     DEBUG_TB_PROFILER_ENABLED = True
 
     MESSAGE_QUOTA = 10
+
+
+class ProdConfig(Config):
+    """Production configuration."""
+
+    DEBUG = False
+    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:Sve14122cvb@127.0.0.1:3306/flaskshop?charset=utf8mb4"
+    DEBUG_TB_ENABLED = False  # Disable Debug toolbar
+
+
+class DevConfig(Config):
+    """Development configuration."""
+
+    DEBUG = True
+    PURCHASE_URI = "mysql+pymysql://root:Sve14122cvb@127.0.0.1:3306/flaskshop?charset=utf8mb4"
+    DEBUG_TB_ENABLED = True
+
+
+class TestConfig(Config):
+    """Test configuration."""
+
+    TESTING = True
+    DEBUG = True
+    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:Sve14122cvb@127.0.0.1:3306/flaskshop?charset=utf8mb4"
+    BCRYPT_LOG_ROUNDS = (
+        4  # For faster tests; needs at least 4 to avoid "ValueError: Invalid rounds"
+    )
+    WTF_CSRF_ENABLED = False  # Allows form testing
+    PRESERVE_CONTEXT_ON_EXCEPTION = False
